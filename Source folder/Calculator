@@ -1,0 +1,11 @@
+# Get two numbers from the user
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+
+# Perform calculations
+sum_result = num1 + num2
+product_result = num1 * num2
+
+# Display results
+print("The sum is:", sum_result)
+print("The product is:", product_result)
