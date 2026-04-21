@@ -1,0 +1,69 @@
+class Task:
+    def __init__(self, description):
+        self.description = description
+        self.is_completed = False
+
+    def mark_done(self):
+        self.is_completed = True
+
+    def __str__(self):
+        status = "[✔]" if self.is_completed else "[ ]"
+        return f"{status} {self.description}"
+
+
+class TaskManager:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, description):
+        self.tasks.append(Task(description))
+        print(f"Added: {description}")
+
+    def remove_task(self, index):
+        try:
+            removed = self.tasks.pop(index)
+            print(f"Removed: {removed.description}")
+        except IndexError:
+            print("Error: Invalid task number.")
+
+    def complete_task(self, index):
+        try:
+            self.tasks[index].mark_done()
+            print(f"Task {index} marked as complete!")
+        except IndexError:
+            print("Error: Invalid task number.")
+
+    def show_tasks(self):
+        print("\n--- Current Task List ---")
+        if not self.tasks:
+            print("No tasks found.")
+        for i, task in enumerate(self.tasks):
+            print(f"{i}: {task}")
+        print("-------------------------\n")
+
+
+def main():
+    manager = TaskManager()
+    
+    while True:
+        manager.show_tasks()
+        print("Commands: [a] Add, [r] Remove, [c] Complete, [q] Quit")
+        choice = input("Select an option: ").lower()
+
+        if choice == 'a':
+            desc = input("Enter task description: ")
+            manager.add_task(desc)
+        elif choice == 'r':
+            idx = int(input("Enter task number to remove: "))
+            manager.remove_task(idx)
+        elif choice == 'c':
+            idx = int(input("Enter task number to complete: "))
+            manager.complete_task(idx)
+        elif choice == 'q':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice, try again.")
+
+if __name__ == "__main__":
+    main()
